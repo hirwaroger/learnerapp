@@ -1,0 +1,26 @@
+{
+  "canisters": {
+    "learnerapp_backend": {
+      "main": "src/learnerapp_backend/main.mo",
+      "type": "motoko"
+    },
+    "learnerapp_frontend": {
+      "dependencies": [
+        "learnerapp_backend"
+      ],
+      "source": [
+        "src/learnerapp_frontend/dist"
+      ],
+      "type": "assets",
+      "workspace": "learnerapp_frontend"
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": ""
+    }
+  },
+  "output_env_file": ".env",
+  "version": 1
+}
