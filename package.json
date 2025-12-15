@@ -14,5 +14,13 @@
   "type": "module",
   "workspaces": [
     "src/learnerapp_frontend"
-  ]
+  ],
+  "dependencies": {
+    "@dfinity/auth-client": "^0.19.3",
+    "@dfinity/agent": "^0.19.3",
+    "@dfinity/principal": "^0.19.3",
+    "@dfinity/candid": "^0.19.3",
+    "react-markdown": "^8.0.7",
+    "react-syntax-highlighter": "^15.5.0"
+  }
 }
