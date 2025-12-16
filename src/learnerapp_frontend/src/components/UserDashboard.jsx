@@ -3,11 +3,12 @@ import TopicSelector from './TopicSelector';
 import ChatInterface from './ChatInterface';
 import Quiz from './Quiz';
 import VideoMaterials from './VideoMaterials';
+import PodcastMaterials from './PodcastMaterials';
 import { learnerapp_backend } from 'declarations/learnerapp_backend';
 
 const UserDashboard = ({ api, actor, user }) => {
   const [selectedTopic, setSelectedTopic] = useState(null);
-  const [activeMode, setActiveMode] = useState('chat'); // 'chat', 'quiz', or 'video'
+  const [activeMode, setActiveMode] = useState('chat'); // 'chat', 'quiz', 'video', or 'podcast'
   const [topics, setTopics] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -83,6 +84,17 @@ const UserDashboard = ({ api, actor, user }) => {
                 >
                   🎬 Video
                 </button>
+                <button
+                  type="button"
+                  className={`flex items-center gap-2 py-2 px-6 text-sm font-medium rounded-md transition-all duration-200 ${
+                    activeMode === 'podcast' 
+                      ? 'bg-white text-indigo-700 shadow-sm' 
+                      : 'text-gray-500 hover:text-gray-700'
+                  }`}
+                  onClick={() => setActiveMode('podcast')}
+                >
+                  🎙️ Podcast
+                </button>
               </div>
             </div>
           </div>
@@ -109,6 +121,14 @@ const UserDashboard = ({ api, actor, user }) => {
             <VideoMaterials 
               api={api}
               actor={actor}
+              notebookId={selectedTopic.notebookId}
+              topicTitle={selectedTopic.title}
+            />
+          )}
+
+          {activeMode === 'podcast' && (
+            <PodcastMaterials 
+              api={api}
               notebookId={selectedTopic.notebookId}
               topicTitle={selectedTopic.title}
             />

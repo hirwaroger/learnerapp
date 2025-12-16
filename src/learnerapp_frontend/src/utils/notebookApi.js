@@ -172,6 +172,22 @@ class NotebookLMAPI {
       return false;
     }
   }
+
+  async generatePodcast(notebookId, speakers = null) {
+    try {
+      const payload = { notebook_id: notebookId };
+      if (speakers) payload.speakers = speakers;
+
+      const response = await fetch(`${this.baseUrl}/api/v1/generate-podcast`, {
+        method: "POST",
+        headers: this.getHeaders(),
+        body: JSON.stringify(payload)
+      });
+      return await response.json();
+    } catch (error) {
+      throw new Error(`Podcast generation failed: ${error.message}`);
+    }
+  }
 }
 
 export default NotebookLMAPI;

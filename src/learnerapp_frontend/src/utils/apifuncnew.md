@@ -1,6 +1,6 @@
 # Extra API Endpoints
 
-This document describes the additional endpoints added to the Public API for image generation, quiz generation, and video generation.
+This document describes the additional endpoints added to the Public API for image generation, quiz generation, video generation, and podcast generation.
 
 ## Endpoints
 
@@ -117,3 +117,56 @@ Serve a completed video file for inline playback in browser.
 **Example Usage:**
 - For playback: `<video src="/api/v1/video/generated_video_123456.mp4" controls></video>`
 - For download: `/api/v1/video/generated_video_123456.mp4?download=true`
+
+### POST /api/v1/generate-podcast
+Generates an audio podcast from a notebook's content using Gemini TTS with multi-speaker voices.
+
+**Request Body:**
+```json
+{
+  "notebook_id": "your-notebook-id",
+  "speakers": {  // Optional custom speaker configuration
+    "Joe": "Kore",
+    "Jane": "Puck"
+  }
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "audio": "base64-encoded-wav-audio-data",
+  "script": "Joe: Welcome to...\nJane: Thanks for having me...",
+  "format": "wav"
+}
+```
+
+**Available Voice Names:**
+- Kore
+- Puck
+- Charon
+- Aoede
+- Fenrir
+
+**Example Usage:**
+```javascript
+// Play the audio in browser
+const audioData = response.audio;
+const audio = new Audio(`data:audio/wav;base64,${audioData}`);
+audio.play();
+
+// Download the audio
+const byteCharacters = atob(audioData);
+const byteNumbers = new Array(byteCharacters.length);
+for (let i = 0; i < byteCharacters.length; i++) {
+  byteNumbers[i] = byteCharacters.charCodeAt(i);
+}
+const byteArray = new Uint8Array(byteNumbers);
+const blob = new Blob([byteArray], { type: 'audio/wav' });
+const url = URL.createObjectURL(blob);
+const link = document.createElement('a');
+link.href = url;
+link.download = 'podcast.wav';
+link.click();
+```

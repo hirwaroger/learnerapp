@@ -128,7 +128,7 @@ const AuthGate = ({ api, onLogin }) => {
               }`}
               onClick={() => setAuthMode('user')}
             >
-              👤 Student
+              👤 Learner
             </button>
             <button
               type="button"
@@ -148,7 +148,7 @@ const AuthGate = ({ api, onLogin }) => {
             {authMode === 'user' ? (
               <div className="space-y-6">
                 <div>
-                  <h3 className="text-lg font-medium text-gray-900 mb-2">Student Login</h3>
+                  <h3 className="text-lg font-medium text-gray-900 mb-2">Learner Login</h3>
                   <p className="text-sm text-gray-600 mb-4">Enter your full name to access learning topics</p>
                   <input
                     type="text"
